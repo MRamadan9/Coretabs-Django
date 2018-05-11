@@ -19,7 +19,7 @@ class Category (models.Model):
 	name = models.CharField(max_length=100)
 	slug = models.SlugField(unique=True, blank=True)	
 	created_at = models.DateTimeField(default=timezone.now)
-	description = models.TextField(max_length=200)
+	description = models.TextField(max_length=256)
 	
 
 	class Meta:
