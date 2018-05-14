@@ -1,5 +1,7 @@
 from django.db import models
+
 from django.utils import timezone
+from django.template.defaultfilters import slugify
 
 
 class Product(models.Model):
@@ -11,8 +13,19 @@ class Product(models.Model):
 	slug = models.SlugField(unique=True, blank=True)
 	category = models.ForeignKey("Category", related_name='products', on_delete=models.CASCADE)
 
+
+	def __str__(self):
+		return self.name
+
 	class Meta:
 		ordering = ('name', )
+
+
+	def save(self, *args, **kwargs):
+		if not self.id:
+			self.slug = slugify(self.name)
+
+		super().save(*args, **kwargs)
 
 
 class Category (models.Model):
@@ -20,8 +33,17 @@ class Category (models.Model):
 	slug = models.SlugField(unique=True, blank=True)	
 	created_at = models.DateTimeField(default=timezone.now)
 	description = models.TextField(max_length=256)
-	
+
+
+	def __str__(self):
+		return self.name
 
 	class Meta:
 		ordering = ('name', )
 
+
+	def save(self, *args, **kwargs):
+		if not self.id:
+			self.slug = slugify(self.name)
+			
+		super().save(*args, **kwargs)
