@@ -1,0 +1,18 @@
+{%extends "shop/base.html" %}
+
+
+{% block title %}
+	Category Items
+{% endblock %}
+
+
+{% block content %}
+	<h3>Category Items:</h3>
+	<ol>
+		{% for pro in products %}
+		<li>
+		    <a href="{{ pro.get_absolute_url }}">{{ pro.name }}</a><br>
+        </li>
+    	{% endfor %}
+	</ol>
+{% endblock %}
