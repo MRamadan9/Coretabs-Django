@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -40,11 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-from whitenoise import WhiteNoise
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    #'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -81,11 +81,17 @@ TEMPLATES = [
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
 }
+
+
+import dj_database_url
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
+DATABASES['default']['CONN_MAX_AGE'] = 500
 
 
 # Password validation
@@ -128,9 +134,7 @@ STATIC_URL = '/static/'
 
 
 # Heroku: Update database configuration from $DATABASE_URL.
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -145,7 +149,5 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-# Simplified static file serving.
-# https://warehouse.python.org/project/whitenoise/
-
-#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'coretabs.storage.S3Storage
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
