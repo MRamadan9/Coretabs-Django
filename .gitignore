@@ -1,4 +1,4 @@
-cfehome/settings/local.py
+coretabse/settings/local.py
 db.sqlite3
 .DS_Store
 
