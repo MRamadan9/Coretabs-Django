@@ -25,7 +25,7 @@ SECRET_KEY = 'ms+s4^x)xnb5ewnts8p6()x5+tn+^slb@zi!hucwt&%ip70b9%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','nameless-cliffs-89308.herokuapp.com']
+ALLOWED_HOSTS = ['coretabs-shop.herokuapp.com']
 
 
 # Application definition
